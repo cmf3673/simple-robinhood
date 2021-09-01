@@ -28,8 +28,12 @@ function TickerSelect() {
         })
         .catch(err => { console.log(`error: ${err}`) })};
 
+    // gets the ticker price every time the ticker is changed and every .2 second
     useEffect(() => {
-        getTickerPrice();
+        const interval = setInterval(() => {
+            getTickerPrice();
+        }, 200);
+        return () => clearInterval(interval);
     }, [selectedTicker]);
 
     return (

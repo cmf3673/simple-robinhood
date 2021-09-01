@@ -31,8 +31,22 @@ router.post("/posts", async (req, res) => {
 	res.send(post)
 })
 
-// update post (needed for chnaging price)
+// patch (needed for chnaging price)
+router.patch("/posts/:name", async (req, res) => {
+    try {
+        const post = await Post.findOne({ name: req.params.name })
 
+        if (req.body.price) {
+            post.price = req.body.price
+        }
+
+        await post.save()
+        res.send(post)
+    } catch {
+        res.status(404)
+        res.send({ error: "Post doesn't exist" })
+    }
+})
 
 
 
