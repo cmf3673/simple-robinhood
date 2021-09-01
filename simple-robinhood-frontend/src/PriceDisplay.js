@@ -1,11 +1,13 @@
 import React from "react";
 <link rel="stylesheet" href="priceDisplay.css" />
 
-function PriceDisplay() {
+
+
+function PriceDisplay(props) {
     return (
-        <div className="price-display">
-            <b></b>
-        </div>
+            <div class = "price">
+                <p>{ props.tickerPrice }</p>
+             </div>
     )
 };
 

@@ -1,47 +1,47 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
+import axios from "axios";
 import Button from '@material-ui/core/Button';
+import PriceDisplay from "./PriceDisplay";
 
 const tickers = [
-    "Ticker 1",
-    "Ticker 2", 
-    "Ticker 3",
-    "Ticker 4",
-    "Ticker 5",
+    "tesla",
+    "fitbit"
+    // "Ticker 2", 
+    // "Ticker 3",
+    // "Ticker 4",
+    // "Ticker 5",
 ]
 
 function TickerSelect() {
 
     const [selectedTicker, setSelectedTicker] = useState(tickers[0]);
+    const [tickerPrice, setTickerPrice] = useState(0); // can have an if zero then display loading..
 
-    // const handleChange = (e) => {
-    //     setSelectedTicker(e.target.value);
-    // };
+    const url = "http://localhost:5000/api/posts/";
+
+    // get ticker price from mongodb
+    const getTickerPrice = () => {
+        axios.get(`${url}${selectedTicker}`)
+        .then(res => {
+            const tickerPrice = res.data.price;
+            setTickerPrice(tickerPrice);
+        })
+        .catch(err => { console.log(`error: ${err}`) })};
+
+    useEffect(() => {
+        getTickerPrice();
+    }, [selectedTicker]);
 
     return (
-        <div class="main">
-            <div class="ticker_items">
-                {tickers.map(t => (
-                    <Button onClick={() => setSelectedTicker(t)}>{t}</Button>
-                ))}
+        <div>
+             <div class="ticker_items">
+                 {tickers.map(t => (
+                     <Button onClick={() => setSelectedTicker(t)}>{t}</Button>))}
             </div>
-            <div class = "price">
-                <p>{selectedTicker}</p>
-                <p>Price</p>
-            </div>
+            <p>{selectedTicker + " price"}</p>
+            <PriceDisplay tickerPrice={tickerPrice}/>
         </div>
     )
 };
 
 export default TickerSelect;
-
-
-// const [count, setCount] = useState(0);
-
-//   return (
-//     <div>
-//       <p>You clicked {count} times</p>
-//       <button onClick={() => setCount(count + 1)}>
-//         Click me
-//       </button>
-//     </div>
-//   );

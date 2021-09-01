@@ -9,8 +9,6 @@ function App() {
       <header className="ticker-select">
         <TickerSelect />
       </header>
-        <PriceDisplay />
-      
     </div>
   );
 }
