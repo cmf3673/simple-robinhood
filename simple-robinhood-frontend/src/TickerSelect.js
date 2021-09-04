@@ -1,21 +1,35 @@
 import React, {useState, useEffect} from "react";
+import { ThemeProvider, createTheme, Button, CssBaseline } from '@material-ui/core';
 import axios from "axios";
-import Button from '@material-ui/core/Button';
+// import Button from '@material-ui/core/Button';
 import PriceDisplay from "./PriceDisplay";
 
-const tickers = [
-    "tesla",
-    "fitbit"
-    // "Ticker 2", 
-    // "Ticker 3",
-    // "Ticker 4",
-    // "Ticker 5",
-]
+const theme = createTheme({
+    palette: {
+        background: {
+            default: '#263238',
+        },
+        text: {
+            primary: "#ffffff"
+          },
+        primary: {
+            main: "#e0e0e0",
+        },
+        secondary: {
+            main: "#ef9a9a",
+        },
+}});
+
+const tickers = ['AAPL', 
+                 'MSFT', 
+                 'GOOG', 
+                 'FB', 
+                 'AMZN']
 
 function TickerSelect() {
 
     const [selectedTicker, setSelectedTicker] = useState(tickers[0]);
-    const [tickerPrice, setTickerPrice] = useState(0); // can have an if zero then display loading..
+    const [tickerPrice, setTickerPrice] = useState(0);
 
     const url = "http://localhost:5000/api/posts/";
 
@@ -24,6 +38,7 @@ function TickerSelect() {
         axios.get(`${url}${selectedTicker}`)
         .then(res => {
             const tickerPrice = res.data.price;
+            localStorage.setItem(`${selectedTicker}TickerPrice`, tickerPrice);
             setTickerPrice(tickerPrice);
         })
         .catch(err => { console.log(`error: ${err}`) })};
@@ -37,14 +52,23 @@ function TickerSelect() {
     }, [selectedTicker]);
 
     return (
-        <div>
-             <div class="ticker_items">
+        
+        <ThemeProvider theme = {theme}>
+             <CssBaseline />
+             <div class="ticker_items" style={{backgroundColor: "primary"}}>
                  {tickers.map(t => (
-                     <Button onClick={() => setSelectedTicker(t)}>{t}</Button>))}
+                     <Button variant="contained" 
+                             onClick={() => setSelectedTicker(t)}
+                             color = {selectedTicker === t ? "secondary" : "primary"}
+                             style={{maxWidth: '200px', maxHeight: '70px', minWidth: '200px', 
+                                     minHeight: '70px', fontSize: '25px', margin: '10px', fontFamily: 'monospace'}}>
+                                 {t}
+                    </Button>       
+                ))}
             </div>
-            <p>{selectedTicker + " price"}</p>
+            <p style={{fontFamily:'monospace', fontSize:'20px'}}>{selectedTicker + " price:"}</p>
             <PriceDisplay tickerPrice={tickerPrice}/>
-        </div>
+        </ThemeProvider>
     )
 };
 

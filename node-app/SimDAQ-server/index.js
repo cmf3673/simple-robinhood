@@ -2,19 +2,32 @@ const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const axios = require("axios");
-var cron = require('node-cron');
+const cron = require('node-cron');
 
-// add initial data in here
 
-const updatePrice = () => {
+const tickers = ['AAPL', 
+                 'MSFT', 
+                 'GOOG', 
+                 'FB', 
+                 'AMZN']
+
+
+const updatePrice = (ticker) => {
     // get current price
     // how do this for all tickers?
-    axios.get("http://localhost:5000/api/posts/tesla").then(res => {
+    axios.get(`http://localhost:5000/api/posts/${ticker}`).then(res => {
         console.log(res.data);
         currentPrice = res.data.price;
+        // get random delta
+        max= currentPrice + (currentPrice * .05);
+        min = currentPrice - (currentPrice * .05);
+        newPrice = parseFloat((Math.random() * (max - min) + min).toFixed(2));
         // update price in db
-        axios.patch("http://localhost:5000/api/posts/tesla", {
-            price: currentPrice + 1,
+        axios.patch(`http://localhost:5000/api/posts/${ticker}`, {
+            price: newPrice,
+        })
+        .catch(err => {
+            console.log(err);
         });
     })
     .catch(err => {
@@ -23,8 +36,9 @@ const updatePrice = () => {
 
 }
 
-console.log("Updating DB")
 cron.schedule('*/1 * * * * *', () => {
-    console.log('Update prices')
-    updatePrice();
+    for (let i = 0; i < tickers.length; i++) {
+        ticker = tickers[i];
+        updatePrice(ticker);
+    }
 });

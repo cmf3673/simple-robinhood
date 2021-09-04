@@ -10,31 +10,31 @@ router.get("/posts", async (req, res) => {
 })
 
 // get post by name
-router.get("/posts/:name", async (req, res) => {
+router.get("/posts/:ticker", async (req, res) => {
     try {
-        const post = await Post.findOne({ name: req.params.name })
+
+        const post = await Post.findOne({ ticker: req.params.ticker })
         res.send(post)
     } catch {
         res.status(404)
         res.send({ error: "Post doesn't exist" })
     }
-
 })
 
 // accept post request
 router.post("/posts", async (req, res) => {
 	const post = new Post({
-		name: req.body.name,
+		ticker: req.body.ticker,
 		price: req.body.price,
 	})
 	await post.save()
 	res.send(post)
 })
 
-// patch (needed for chnaging price)
-router.patch("/posts/:name", async (req, res) => {
+// patch (needed for changing price)
+router.patch("/posts/:ticker", async (req, res) => {
     try {
-        const post = await Post.findOne({ name: req.params.name })
+        const post = await Post.findOne({ ticker: req.params.ticker })
 
         if (req.body.price) {
             post.price = req.body.price
@@ -48,6 +48,27 @@ router.patch("/posts/:name", async (req, res) => {
     }
 })
 
+// delete 
+router.delete("/posts/:ticker", async (req, res) => {
+	try {
+		await Post.deleteOne({ ticker: req.params.ticker })
+		res.status(204).send()
+	} catch {
+		res.status(404)
+		res.send({ error: "Post doesn't exist!" })
+	}
+})
+
+// remove all posts
+router.delete("/posts", async (req, res) => {
+    try {
+        await Post.deleteMany({})
+        res.status(204).send()
+    } catch {
+        res.status(404)
+        res.send({ error: "Error" })
+    }
+})
 
 
 module.exports = router

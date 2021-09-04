@@ -1,21 +1,11 @@
 import React, { useEffect } from "react";
-<link rel="stylesheet" href="priceDisplay.css" />
-
-
-
+import { ThemeProvider, createTheme, Button, CssBaseline } from '@material-ui/core';
 
 function PriceDisplay(props) {
-    // update the price every second
-    // useEffect(() => {
-    //     const interval = setInterval(() => {
-    //         props.updatePrice();
-    //     }, 1000)
-    //     return () => clearInterval(interval);
-    // })
 
     return (
             <div class = "price">
-                <p>{props.tickerPrice}</p>
+                <p style={{fontFamily: 'monospace', fontSize:'40px'}}> {props.tickerPrice != 0 ? '$' + props.tickerPrice:'Loading..'} </p>
              </div>
     )
 };
