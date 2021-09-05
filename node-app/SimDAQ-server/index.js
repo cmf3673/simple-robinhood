@@ -14,11 +14,9 @@ const tickers = ['AAPL',
 
 const updatePrice = (ticker) => {
     // get current price
-    // how do this for all tickers?
     axios.get(`http://localhost:5000/api/posts/${ticker}`).then(res => {
         console.log(res.data);
         currentPrice = res.data.price;
-        // get random delta
         max= currentPrice + (currentPrice * .05);
         min = currentPrice - (currentPrice * .05);
         newPrice = parseFloat((Math.random() * (max - min) + min).toFixed(2));
