@@ -1,3 +1,3 @@
 # simple-robinhood
 
-#![TEXT](media/simple-rh.gif)
+![TEXT](media/simple-rh.gif)
