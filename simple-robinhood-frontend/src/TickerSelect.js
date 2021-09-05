@@ -1,6 +1,8 @@
 import React, {useState, useEffect} from "react";
 import { ThemeProvider, createTheme, Button, CssBaseline } from '@material-ui/core';
 import axios from "axios";
+import LiveChart from './liveChart';
+import { updateLocalHistory } from "./updateTickerHistory";
 // import Button from '@material-ui/core/Button';
 import PriceDisplay from "./PriceDisplay";
 
@@ -30,6 +32,7 @@ function TickerSelect() {
 
     const [selectedTicker, setSelectedTicker] = useState(tickers[0]);
     const [tickerPrice, setTickerPrice] = useState(0);
+    const [tickerData, setTickerData] = useState([]);
 
     const url = "http://localhost:5000/api/posts/";
 
@@ -37,17 +40,19 @@ function TickerSelect() {
     const getTickerPrice = () => {
         axios.get(`${url}${selectedTicker}`)
         .then(res => {
+            const itemName = `${selectedTicker}TickerHistory`
             const tickerPrice = res.data.price;
-            localStorage.setItem(`${selectedTicker}TickerPrice`, tickerPrice);
+            const currentData = updateLocalHistory(tickerPrice, itemName);
+            setTickerData(currentData);
             setTickerPrice(tickerPrice);
         })
         .catch(err => { console.log(`error: ${err}`) })};
 
-    // gets the ticker price every time the ticker is changed and every .2 second
+    // gets the ticker price every time the ticker is changed and every .5 second
     useEffect(() => {
         const interval = setInterval(() => {
             getTickerPrice();
-        }, 200);
+        }, 500);
         return () => clearInterval(interval);
     }, [selectedTicker]);
 
@@ -68,6 +73,7 @@ function TickerSelect() {
             </div>
             <p style={{fontFamily:'monospace', fontSize:'20px'}}>{selectedTicker + " price:"}</p>
             <PriceDisplay tickerPrice={tickerPrice}/>
+            <LiveChart tickerData={tickerData} />
         </ThemeProvider>
     )
 };
