@@ -13,4 +13,4 @@
         bash start-rh-server.sh
         bash start-frontend.sh
 ```
-3. **Navigate to http://localhost:3000/ and *viola**.*
+3. **Navigate to http://localhost:3000/ and *viola*.**
