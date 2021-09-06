@@ -1,5 +1,5 @@
 # simple-robinhood
-## A simple ticker tracker
+## A simple ticker sim
 ![TEXT](media/simple-rh.gif)
 ### To start simulation:
 1. **Ensure you have started [mongoDB](https://docs.mongodb.com/manual/administration/install-community/).**
