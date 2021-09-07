@@ -9,8 +9,8 @@
 ```
 2. **Open 3 terminal windows and run (in order):**
 ```
-        bash start-SimDAQ.sh
-        bash start-rh-server.sh
-        bash start-frontend.sh
+        bash start-scripts/start-SimDAQ.sh
+        bash start-scripts/start-rh-server.sh
+        bash start-scripts/start-frontend.sh
 ```
 3. **Navigate to http://localhost:3000/ and *viola*.**
