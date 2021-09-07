@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const schema = mongoose.Schema({
-    ticker: String,
+    ticker: {type: String, unique: true},
     prices: [Number],
 })
 

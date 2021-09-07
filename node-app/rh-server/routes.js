@@ -1,67 +1,67 @@
 // contains express routes
 const express = require('express');
-const Post = require("./models/Post");
+const Stock = require("./models/stock");
 const router = express.Router();
 
 // Get all posts
-router.get("/posts", async (req, res) => {
-	const posts = await Post.find() // waiting untill the promise is resolved before sending the response
-	res.send(posts)
+router.get("/stocks", async (req, res) => {
+	const stocks = await Stock.find()
+	res.send(stocks)
 });
 
 // Get post by name
-router.get("/posts/:ticker", async (req, res) => {
+router.get("/stocks/:ticker", async (req, res) => {
     try {
-        const post = await Post.findOne({ ticker: req.params.ticker })
-        res.send(post)
+        const stock = await Stock.findOne({ ticker: req.params.ticker })
+        res.send(stock)
     } catch {
         res.status(404)
-        res.send({ error: "Post doesn't exist" })
+        res.send({ error: "Stock doesn't exist" })
     }
 });
 
 // post
-router.post("/posts", async (req, res) => {
+router.post("/stocks", async (req, res) => {
     console.log('Entering:')
     console.log(req.body)
-	const post = new Post({
+	const stock = new Stock({
 		ticker: req.body.ticker,
 		prices: req.body.prices,
 	});
-	await post.save()
-	res.send(post)
+	await stock.save()
+	res.send(stock)
 });
 
-// patch
-router.patch("/posts/:ticker", async (req, res) => {
+// patch prices
+router.patch("/stocks/:ticker", async (req, res) => {
     try {
-        const post = await Post.findOne({ ticker: req.params.ticker })
+        const stock = await Stock.findOne({ ticker: req.params.ticker })
         if (req.body.prices) {
-            post.prices = req.body.prices
+            stock.prices = req.body.prices
         }
-        await post.save()
-        res.send(post)
+        await stock.save()
+        res.send(stock)
     } catch {
         res.status(404)
-        res.send({ error: "Post doesn't exist" })
+        res.send({ error: "Stock doesn't exist" })
     }
 });
 
 // delete 
-router.delete("/posts/:ticker", async (req, res) => {
+router.delete("/stocks/:ticker", async (req, res) => {
 	try {
-		await Post.deleteOne({ ticker: req.params.ticker })
+		await Stock.deleteOne({ ticker: req.params.ticker })
 		res.status(204).send()
 	} catch {
 		res.status(404)
-		res.send({ error: "Post doesn't exist!" })
+		res.send({ error: "Stock doesn't exist!" })
 	}
 });
 
 // delete all
-router.delete("/posts", async (req, res) => {
+router.delete("/stocks", async (req, res) => {
     try {
-        await Post.deleteMany({})
+        await Stock.deleteMany({})
         res.status(204).send()
     } catch {
         res.status(404)

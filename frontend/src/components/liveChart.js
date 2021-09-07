@@ -3,7 +3,6 @@ import Chart from "react-apexcharts";
 
 function LiveChart(props) {
     const [options, setOptions] = useState({
-
         chart: {
             id: "stocks",
             animations: {

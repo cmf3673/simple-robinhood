@@ -11,7 +11,7 @@ const tickers = ['AAPL',
 
 const updatePrice = (ticker) => {
     // get current price
-    axios.get(`http://localhost:5000/api/posts/${ticker}`).then(res => {
+    axios.get(`http://localhost:5000/api/stocks/${ticker}`).then(res => {
         console.log(res.data);
         prices = res.data.prices
         currentPrice = prices[prices.length - 1];
@@ -28,7 +28,7 @@ const updatePrice = (ticker) => {
             prices.push(newPrice);
         }
         // update price in db
-        axios.patch(`http://localhost:5000/api/posts/${ticker}`, {
+        axios.patch(`http://localhost:5000/api/stocks/${ticker}`, {
             prices: prices
         })
         .catch(err => {

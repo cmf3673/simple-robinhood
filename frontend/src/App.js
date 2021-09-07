@@ -1,7 +1,5 @@
-import logo from './logo.svg';
 import './App.css';
-import TickerSelect from './TickerSelect';
-import PriceDisplay from './PriceDisplay';
+import TickerSelect from './components/TickerSelect';
 
 function App() {
   return (
