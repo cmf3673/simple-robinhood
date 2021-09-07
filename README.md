@@ -7,10 +7,10 @@
 ```
   brew services start mongodb-community@5.0
 ```
-2. **Open 3 terminal windows and run (in order):**
+2. **Open 3 terminal windows and run (in start-scripts):**
 ```
-        bash start-scripts/start-rh-server.sh
-        bash start-scripts/start-SimDAQ.sh
-        bash start-scripts/start-frontend.sh
+        bash start-rh-server.sh
+        bash start-SimDAQ.sh
+        bash start-frontend.sh
 ```
 3. **Navigate to http://localhost:3000/ and *viola*.**
