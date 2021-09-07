@@ -2,6 +2,6 @@
 
 bash enter-initial-data.sh
 
-cd node-app
+cd ../node-app
 
 node SimDAQ/index.js

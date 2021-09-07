@@ -2,8 +2,6 @@ import React, {useState, useEffect} from "react";
 import { ThemeProvider, createTheme, Button, CssBaseline } from '@material-ui/core';
 import axios from "axios";
 import LiveChart from './liveChart';
-import { updateLocalHistory } from "./updateTickerHistory";
-// import Button from '@material-ui/core/Button';
 import PriceDisplay from "./PriceDisplay";
 
 const theme = createTheme({
@@ -20,7 +18,8 @@ const theme = createTheme({
         secondary: {
             main: "#ef9a9a",
         },
-}});
+    }
+});
 
 const tickers = ['AAPL', 
                  'MSFT', 
@@ -31,7 +30,6 @@ const tickers = ['AAPL',
 function TickerSelect() {
 
     const [selectedTicker, setSelectedTicker] = useState(tickers[0]);
-    const [tickerPrice, setTickerPrice] = useState(0);
     const [tickerData, setTickerData] = useState([]);
 
     const url = "http://localhost:5000/api/posts/";
@@ -40,11 +38,8 @@ function TickerSelect() {
     const getTickerPrice = () => {
         axios.get(`${url}${selectedTicker}`)
         .then(res => {
-            const itemName = `${selectedTicker}TickerHistory`
-            const tickerPrice = res.data.price;
-            const currentData = updateLocalHistory(tickerPrice, itemName);
-            setTickerData(currentData);
-            setTickerPrice(tickerPrice);
+            const tickerData = res.data.prices;
+            setTickerData(tickerData);
         })
         .catch(err => { console.log(`error: ${err}`) })};
 
@@ -58,9 +53,9 @@ function TickerSelect() {
 
     return (
         
-        <ThemeProvider theme = {theme}>
+        <ThemeProvider theme={theme}>
              <CssBaseline />
-             <div class="ticker_items" style={{backgroundColor: "primary"}}>
+            <div class="ticker_items" style={{backgroundColor: "primary"}}>
                  {tickers.map(t => (
                      <Button variant="contained" 
                              onClick={() => setSelectedTicker(t)}
@@ -72,7 +67,7 @@ function TickerSelect() {
                 ))}
             </div>
             <p style={{fontFamily:'monospace', fontSize:'20px'}}>{selectedTicker + " price:"}</p>
-            <PriceDisplay tickerPrice={tickerPrice}/>
+            <PriceDisplay tickerPrice={tickerData[tickerData.length - 1]}/>
             <LiveChart tickerData={tickerData} />
         </ThemeProvider>
     )

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Chart from "react-apexcharts";
 
 function LiveChart(props) {
@@ -91,43 +91,3 @@ function LiveChart(props) {
 };
 
 export default LiveChart;
-
-// {
-//     chart: {
-//      id: 'realtime',
-//      height: '100px',
-//      width: '250px',
-//      type: 'line',
-//           animations: {
-//             enabled: false,
-//             dynamicAnimation: {
-//               enabled: true,
-//               speed: 100
-//             }
-//           },
-//           colors: ['#2E93fA'],
-//           toolbar: {
-//             show: false
-//           },
-//           zoom: {
-//             enabled: false
-//           }
-//         },
-//         dataLabels: {
-//           enabled: false
-//         },
-//         stroke: {
-//           curve: 'straight', 
-//           color: '#fff',
-//         },
-//         markers: {
-//           size: 0
-//         },
-//         yaxis: {
-//             min: 0,
-//             max: 1000
-//           },
-//         legend: {
-//           show: false
-//         },
-// }

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-cd simple-robinhood-frontend
+cd ../frontend
 
 npm install
 
