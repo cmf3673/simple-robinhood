@@ -3,7 +3,7 @@
 ![TEXT](media/simple-rh.gif)
 
 ### About:
-Developed for the Gatsby hiring challenge, this simulator updates 5 stock tickers every second in a mongoDB and displays those updates along with a graph history in a single-page react web app. 
+This simulator updates 5 stock tickers every second in a mongoDB and displays those updates along with a graph history in a single-page react web app. 
 
 ### Tech stack:
 **React**: js frontend library   
