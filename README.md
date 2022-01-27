@@ -23,5 +23,5 @@ This simulator updates 5 stock tickers every second in a mongoDB and displays th
         bash start-SimDAQ.sh
         bash start-frontend.sh
 ```
-3. **Navigate to http://localhost:3000/ and *viola*.**
+3. **Navigate to http://localhost:3000/ and *viola*.** 
 
