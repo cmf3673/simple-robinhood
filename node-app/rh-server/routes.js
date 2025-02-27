@@ -3,13 +3,13 @@ const express = require('express');
 const Stock = require("./models/stock");
 const router = express.Router();
 
-// Get all posts
+// Get all stocks
 router.get("/stocks", async (req, res) => {
 	const stocks = await Stock.find()
 	res.send(stocks)
 });
 
-// Get post by name
+// Get stock by ticker
 router.get("/stocks/:ticker", async (req, res) => {
     try {
         const stock = await Stock.findOne({ ticker: req.params.ticker })
@@ -68,6 +68,5 @@ router.delete("/stocks", async (req, res) => {
         res.send({ error: "Error" })
     }
 });
-
 
 module.exports = router
