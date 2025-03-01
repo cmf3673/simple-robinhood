@@ -12,7 +12,7 @@ This simulator updates 5 stock tickers every second in a mongoDB and displays th
 
 
 ### To start simulation:
-1. **Ensure you have started [mongoDB](https://docs.mongodb.com/manual/administration/install-community/).**
+1. **Ensure you have [mongoDB](https://docs.mongodb.com/manual/administration/install-community/).**
     - Can start community edition with:
 ```
   brew services start mongodb-community@5.0
