@@ -10,8 +10,8 @@ mongoose
         app.use(cors());
         app.use(express.json())
         app.use('/api', routes)
-		app.listen(5000, () => {
-			console.log("Server has started!")
+		app.listen(3001, () => {
+			console.log("Server has started on port 3001!")
 	    })
 	})
     .catch (err => {

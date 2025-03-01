@@ -16,7 +16,7 @@ function TickerSelect() {
     const [selectedTicker, setSelectedTicker] = useState(tickers[0]);
     const [tickerData, setTickerData] = useState([]);
 
-    const url = "http://localhost:5000/api/stocks/";
+    const url = "http://localhost:3001/api/stocks/";
 
     // get ticker prices from mongodb and sets data
     const getTickerPrice = () => {
