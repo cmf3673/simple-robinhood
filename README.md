@@ -11,7 +11,7 @@ This simulator updates 5 stock tickers every second in a mongoDB and displays th
 **Mongoose**: library for stock schema and mongoDB interaction  
 
 
-### To start simulation:
+### To start local simulation:
 1. **Ensure you have [mongoDB](https://docs.mongodb.com/manual/administration/install-community/).**
     - Can start community edition with:
 ```
