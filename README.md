@@ -17,7 +17,7 @@ This simulator updates 5 stock tickers every second in a mongoDB and displays th
 ```
   brew services start mongodb-community@5.0
 ```
-2. **Run (in start-scripts):**
+2. **Run in order(in start-scripts):**
 ```
         bash start-rh-server.sh
         bash start-SimDAQ.sh
